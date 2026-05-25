@@ -28,8 +28,16 @@ jobs:
         run: npm run build
         working-directory: hello-world-project
 
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
       - name: Deploy to Firebase App Hosting
-        run: npx firebase apphosting:rollouts:create hello-world-backend --git-branch main --project studio-6652665935-1850d --force
+        run: firebase apphosting:rollouts:create hello-world-backend --git-branch main --project studio-6652665935-1850d --force
         working-directory: hello-world-project
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}
