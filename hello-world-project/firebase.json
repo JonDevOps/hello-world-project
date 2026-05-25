@@ -1,0 +1,10 @@
+{
+  "apphosting": {
+    "hello-world-backend": {
+      "autoDeploy": true,
+      "release": {
+        "channel": "live"
+      }
+    }
+  }
+}
