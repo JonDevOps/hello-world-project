@@ -16,22 +16,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Install Dependencies
         run: npm ci
         working-directory: hello-world-project
 
-      - name: Install Firebase Tools
-        run: npm install -D firebase-tools
-        working-directory: hello-world-project
+
 
       - name: Build Next.js Project
         run: npm run build
         working-directory: hello-world-project
 
       - name: Deploy to Firebase App Hosting
-        run: npm exec firebase apphosting:rollouts:create hello-world-backend --git-branch main --project studio-6652665935-1850d --force
+        run: npx firebase apphosting:rollouts:create hello-world-backend --git-branch main --project studio-6652665935-1850d --force
         working-directory: hello-world-project
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
